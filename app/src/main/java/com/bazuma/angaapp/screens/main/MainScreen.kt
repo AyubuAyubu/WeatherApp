@@ -28,6 +28,8 @@ import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.bazuma.angaapp.data.DataOrException
 import com.bazuma.angaapp.model.Weather
+import com.bazuma.angaapp.utils.formatDate
+import com.bazuma.angaapp.utils.formatDecimals
 import com.bazuma.angaapp.widgets.WeatherAppBar
 import java.lang.Exception
 
@@ -78,7 +80,7 @@ fun MainContent(data:Weather) {
        horizontalAlignment = Alignment.CenterHorizontally
    ) {
         Text(
-            text = "Nov 29",
+            text = formatDate(data.list[0].dt),
             style = MaterialTheme.typography.caption,
             color=MaterialTheme.colors.onSecondary,
             fontWeight = FontWeight.SemiBold,
@@ -96,8 +98,10 @@ fun MainContent(data:Weather) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 WeatherStateImage(imageUrl=imageUrl)
-                Text(text = "56",style=MaterialTheme.typography.h4, fontWeight = FontWeight.ExtraBold)
-                Text(text = "Snow", fontStyle = FontStyle.Italic)
+                Text(text = formatDecimals(data.list[0].temp.day) + "°"
+                    ,style=MaterialTheme.typography.h4,
+                    fontWeight = FontWeight.ExtraBold)
+                Text(text = data.list[0].weather[0].main, fontStyle = FontStyle.Italic)
             }
        }
    }
